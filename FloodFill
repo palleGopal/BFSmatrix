@@ -1,0 +1,67 @@
+import java.util.*;
+
+class Pair {
+    int row;
+    int col;
+
+    Pair(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+}
+
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int n = image.length;
+        int m = image[0].length;
+
+        int initialColor = image[sr][sc];
+        if (initialColor == color) return image;
+
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(sr, sc));
+        image[sr][sc] = color;
+
+        int[] temprow = {1, -1, 0, 0};
+        int[] tempcol = {0, 0, -1, 1};
+        while (!q.isEmpty()) {
+            Pair current = q.poll();
+            int row = current.row;
+            int col = current.col;
+
+            for (int i = 0; i < 4; i++) {
+                int nrow = row + temprow[i];
+                int ncol = col + tempcol[i];
+
+                if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && image[nrow][ncol] == initialColor) {
+                    q.add(new Pair(nrow, ncol));
+                    image[nrow][ncol] = color;
+                }
+            }
+        }
+        return image;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        int[][] image = {
+            {1, 1, 1},
+            {1, 1, 0},
+            {1, 0, 1}
+        };
+        int sr = 1, sc = 1, newColor = 2;
+
+        int[][] result = sol.floodFill(image, sr, sc, newColor);
+
+        // Print the output
+        for (int[] row : result) {
+            for (int pixel : row) {
+                System.out.print(pixel + " ");
+            }
+            System.out.println();
+        }
+    }
+}
