@@ -1,0 +1,41 @@
+public class Solution {
+    public static boolean rec(int[] nums, int sum, int k, int index, Boolean[][] dp) {
+        if (index == nums.length) {
+            return 2 * sum == k;
+        }
+        if (sum > k / 2)
+            return false;
+
+        if (dp[index][sum] != null)
+            return dp[index][sum];
+
+        boolean select = rec(nums, sum + nums[index], k, index + 1, dp);
+        boolean nonSelect = rec(nums, sum, k, index + 1, dp);
+        dp[index][sum] = select || nonSelect;
+
+        return dp[index][sum];
+    }
+
+    public boolean canPartition(int[] nums) {
+        int k = 0;
+        for (int num : nums)
+            k += num;
+        if (k % 2 == 1)
+            return false;
+        else {
+            Boolean[][] dp = new Boolean[nums.length][k + 1];
+            return rec(nums, 0, k, 0, dp);
+        }
+    }
+
+    
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        int[] nums = {1, 5, 11, 5};  // Example input
+        System.out.println("Can partition: " + sol.canPartition(nums));
+    }
+}
+
+
+
+
