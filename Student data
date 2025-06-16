@@ -1,0 +1,23 @@
+import java.util.Scanner;
+ class Student{
+    String name="Guna";
+    int roll=29;
+    String branch="EEE";
+    float cgpa=7.5f;
+}
+class Employee{
+    String name="Gopal";
+    String role="python dev";
+    int id=1205;
+    float salary=70000.9f;
+}    
+class Main{
+    public static void main (String args[]){
+        Employee e=new Employee();
+        System.out.println("Name:"+e.name);
+        System.out.println("role:"+e.role);
+        System.out.println("id:"+e.id);
+        System.out.println("salary:"+e.salary);
+
+    }
+}
